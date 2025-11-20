@@ -3,110 +3,232 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Система моніторингу Delta СБУ</title>
-    <link rel="stylesheet" href="https://openlayers.org/en/v6.15.1/css/ol.css">
-    <link rel="stylesheet" href="css/delta.css">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <title>DELTA • Система моніторингу</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
-<body class="delta-terminal">
-    <div class="system-overlay">
-        <div class="top-bar">
-            <div class="system-info">
-                <span class="security-level">РІВЕНЬ БЕЗПЕКИ: ДЕЛЬТА</span>
-                <span class="timestamp" id="timestamp"></span>
-                <span class="operator">ОПЕРАТОР: СБУ-0876</span>
+<body>
+    <div class="container">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <div class="logo">
+                <div class="delta-symbol">Δ</div>
+                <span class="logo-text">DELTA</span>
+            </div>
+            
+            <nav class="nav-menu">
+                <a href="#" class="nav-item active">
+                    <span class="nav-icon">🗺️</span>
+                    Мапа
+                </a>
+                <a href="#" class="nav-item">
+                    <span class="nav-icon">📊</span>
+                    Аналітика
+                </a>
+                <a href="#" class="nav-item">
+                    <span class="nav-icon">👥</span>
+                    Особи
+                </a>
+                <a href="#" class="nav-item">
+                    <span class="nav-icon">📹</span>
+                    Камери
+                </a>
+                <a href="#" class="nav-item">
+                    <span class="nav-icon">⚙️</span>
+                    Налаштування
+                </a>
+            </nav>
+
+            <div class="system-status">
+                <div class="status-item">
+                    <div class="status-indicator online"></div>
+                    <span>Система</span>
+                </div>
+                <div class="status-item">
+                    <div class="status-indicator active"></div>
+                    <span>База даних</span>
+                </div>
+                <div class="status-item">
+                    <div class="status-indicator recording"></div>
+                    <span>Запис</span>
+                </div>
             </div>
         </div>
 
-        <div class="main-container">
-            <div class="map-panel">
-                <div class="panel-header">
-                    <h2>КАРТА МОНІТОРИНГУ ТЕРИТОРІЇ УКРАЇНИ</h2>
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Header -->
+            <header class="header">
+                <div class="header-left">
+                    <h1>Система моніторингу DELTA</h1>
+                    <div class="breadcrumb">Головна / Мапа</div>
+                </div>
+                <div class="header-right">
+                    <div class="search-box">
+                        <input type="text" placeholder="Пошук об'єктів, осіб, адрес...">
+                        <button>🔍</button>
+                    </div>
+                    <div class="user-menu">
+                        <div class="user-avatar">СБУ</div>
+                        <span class="user-name">Оператор #4872</span>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Stats Cards -->
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon">🏢</div>
+                    <div class="stat-info">
+                        <div class="stat-number">1,247</div>
+                        <div class="stat-label">Об'єктів</div>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">👁️</div>
+                    <div class="stat-info">
+                        <div class="stat-number">5,892</div>
+                        <div class="stat-label">Камер</div>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">👥</div>
+                    <div class="stat-info">
+                        <div class="stat-number">284,156</div>
+                        <div class="stat-label">Осіб</div>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">🚨</div>
+                    <div class="stat-info">
+                        <div class="stat-number">23</div>
+                        <div class="stat-label">Подій</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Map Section -->
+            <div class="map-container">
+                <div class="map-header">
+                    <h2>Мапа моніторингу України</h2>
                     <div class="map-controls">
-                        <button class="ctrl-btn" onclick="toggleSatellite()">СУПУТНИК</button>
-                        <button class="ctrl-btn" onclick="scanForThreats()">СКАНУВАТИ</button>
-                        <button class="ctrl-btn" onclick="showAllUnits()">ВСІ ОБ'ЄКТИ</button>
+                        <button class="control-btn">🌍 Супутник</button>
+                        <button class="control-btn">🎯 Мітки</button>
+                        <button class="control-btn">📡 Сканувати</button>
                     </div>
                 </div>
-                <div id="deltaMap" class="delta-map"></div>
+                <div id="map" class="map"></div>
             </div>
 
-            <div class="side-panels">
-                <div class="data-panel">
-                    <div class="panel-header">
-                        <h2>БАЗА ДАНИХ ОБ'ЄКТІВ</h2>
-                    </div>
-                    <div class="search-section">
-                        <input type="text" id="searchInput" placeholder="ПОШУК ЗА АДРЕСОЮ, ФІО, IP..." class="delta-input">
-                        <button onclick="advancedSearch()" class="search-btn">ПОШУК</button>
-                    </div>
-                    <div id="objectDetails" class="object-details">
-                        <div class="init-screen">
-                            <div class="sbu-logo">Δ</div>
-                            <p>СИСТЕМА DELTA АКТИВОВАНА</p>
-                            <p>Оберіть об'єкт на карті для перегляду детальної інформації</p>
+            <!-- Recent Activity -->
+            <div class="activity-section">
+                <h3>Остання активність</h3>
+                <div class="activity-list">
+                    <div class="activity-item">
+                        <div class="activity-icon">🔴</div>
+                        <div class="activity-content">
+                            <div class="activity-title">Рух виявлено</div>
+                            <div class="activity-desc">Київ, вул. Хрещатик, 25 • Камера #KY-487</div>
+                            <div class="activity-time">2 хвилини тому</div>
                         </div>
                     </div>
-                </div>
-
-                <div class="camera-panel">
-                    <div class="panel-header">
-                        <h2>СИСТЕМА ВІДЕОСПОСТЕРЕЖЕННЯ</h2>
-                    </div>
-                    <div id="cameraContainer" class="camera-container">
-                        <div class="camera-placeholder">
-                            <div class="camera-icon">📹</div>
-                            <p>Камера не обрана</p>
+                    <div class="activity-item">
+                        <div class="activity-icon">🟡</div>
+                        <div class="activity-content">
+                            <div class="activity-title">Доступ до системи</div>
+                            <div class="activity-desc">Оператор #5842 • Центральний офіс</div>
+                            <div class="activity-time">5 хвилин тому</div>
                         </div>
                     </div>
-                    <div class="camera-controls">
-                        <button class="delta-btn" onclick="recordFootage()">ЗАПИС</button>
-                        <button class="delta-btn" onclick="takeScreenshot()">ЗНИМОК</button>
-                        <button class="delta-btn" onclick="toggleNightVision()">НІЧНИЙ</button>
-                    </div>
-                </div>
-
-                <div class="analytics-panel">
-                    <div class="panel-header">
-                        <h2>АНАЛІТИКА ТА ЗВІТИ</h2>
-                    </div>
-                    <div class="analytics-content">
-                        <div class="stat-item">
-                            <span class="stat-label">МОНІТОРИНГ ОБ'ЄКТІВ:</span>
-                            <span class="stat-value" id="objectsCount">0</span>
+                    <div class="activity-item">
+                        <div class="activity-icon">🔵</div>
+                        <div class="activity-content">
+                            <div class="activity-title">Оновлення бази</div>
+                            <div class="activity-desc">Додано 15 нових об'єктів моніторингу</div>
+                            <div class="activity-time">12 хвилин тому</div>
                         </div>
-                        <div class="stat-item">
-                            <span class="stat-label">АКТИВНІ КАМЕРИ:</span>
-                            <span class="stat-value" id="activeCameras">0</span>
-                        </div>
-                        <div class="stat-item">
-                            <span class="stat-label">ЗАРЕЄСТРОВАНИХ ОСІБ:</span>
-                            <span class="stat-value" id="personsCount">0</span>
-                        </div>
-                        <button class="report-btn" onclick="generateReport()">ЗВІТ ПО СИСТЕМІ</button>
                     </div>
                 </div>
             </div>
         </div>
 
-        <div class="status-bar">
-            <div class="status-item">
-                <span class="status-indicator online"></span>
-                СИСТЕМА: ONLINE
+        <!-- Right Panel -->
+        <div class="right-panel">
+            <div class="panel-section">
+                <h3>Обрані об'єкти</h3>
+                <div class="favorite-list">
+                    <div class="favorite-item">
+                        <div class="fav-icon">🏛️</div>
+                        <div class="fav-info">
+                            <div class="fav-title">Урядова будівля</div>
+                            <div class="fav-desc">Київ, вул. Банкова</div>
+                        </div>
+                    </div>
+                    <div class="favorite-item">
+                        <div class="fav-icon">🏢</div>
+                        <div class="fav-info">
+                            <div class="fav-title">Житловий комплекс</div>
+                            <div class="fav-desc">Київ, Троєщина</div>
+                        </div>
+                    </div>
+                    <div class="favorite-item">
+                        <div class="fav-icon">🚧</div>
+                        <div class="fav-info">
+                            <div class="fav-title">КПП Краковець</div>
+                            <div class="fav-desc">Прикордонний пункт</div>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="status-item">
-                <span class="status-indicator active"></span>
-                БАЗА ДАНИХ: АКТИВНА
+
+            <div class="panel-section">
+                <h3>Швидкий доступ</h3>
+                <div class="quick-actions">
+                    <button class="action-btn">
+                        <span class="action-icon">📋</span>
+                        Звіт
+                    </button>
+                    <button class="action-btn">
+                        <span class="action-icon">🎥</span>
+                        Запис
+                    </button>
+                    <button class="action-btn">
+                        <span class="action-icon">🔔</span>
+                        Сповіщення
+                    </button>
+                    <button class="action-btn">
+                        <span class="action-icon">📊</span>
+                        Графіки
+                    </button>
+                </div>
             </div>
-            <div class="status-item">
-                <span class="status-indicator recording"></span>
-                АРХІВ: ЗАПИСУЄТЬСЯ
+
+            <div class="panel-section">
+                <h3>Системна інформація</h3>
+                <div class="system-info">
+                    <div class="info-item">
+                        <span>Версія:</span>
+                        <span>DELTA 2.4.8</span>
+                    </div>
+                    <div class="info-item">
+                        <span>Оновлено:</span>
+                        <span>26.09.2025</span>
+                    </div>
+                    <div class="info-item">
+                        <span>Статус:</span>
+                        <span class="status-active">Активна</span>
+                    </div>
+                    <div class="info-item">
+                        <span>База даних:</span>
+                        <span class="status-synced">Синхронізовано</span>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 
-    <script src="https://openlayers.org/en/v6.15.1/build/ol.js"></script>
-    <script src="js/delta-database.js"></script>
-    <script src="js/delta-system.js"></script>
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+    <script src="js/map.js"></script>
+    <script src="js/app.js"></script>
 </body>
 </html>
