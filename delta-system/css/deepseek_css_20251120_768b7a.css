@@ -1,0 +1,306 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body.delta-terminal {
+    background: #0a0a0a;
+    color: #00ff00;
+    font-family: 'Roboto Mono', monospace;
+    overflow: hidden;
+}
+
+.system-overlay {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    background: 
+        radial-gradient(circle at 20% 80%, rgba(0, 255, 0, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(0, 255, 0, 0.05) 0%, transparent 50%),
+        linear-gradient(45deg, #0a0a0a 0%, #001100 100%);
+}
+
+.top-bar {
+    background: rgba(0, 20, 0, 0.9);
+    border-bottom: 1px solid #00ff00;
+    padding: 8px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.system-info {
+    display: flex;
+    gap: 30px;
+    font-size: 12px;
+}
+
+.security-level {
+    color: #ff4444;
+    font-weight: bold;
+}
+
+.timestamp {
+    color: #00ff00;
+}
+
+.operator {
+    color: #ffff00;
+}
+
+.main-container {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    height: calc(100vh - 80px);
+    gap: 1px;
+    background: #00ff00;
+}
+
+.map-panel, .side-panels {
+    background: #0a0a0a;
+    position: relative;
+}
+
+.side-panels {
+    display: grid;
+    grid-template-rows: 1fr 1fr 1fr;
+    gap: 1px;
+    background: #00ff00;
+}
+
+.panel-header {
+    background: rgba(0, 30, 0, 0.9);
+    padding: 10px 15px;
+    border-bottom: 1px solid #00ff00;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.delta-map {
+    width: 100%;
+    height: calc(100% - 50px);
+    background: #001100;
+}
+
+.ol-attribution {
+    display: none;
+}
+
+.ol-zoom {
+    top: auto;
+    bottom: 10px;
+    left: 10px;
+}
+
+.ol-zoom button {
+    background: rgba(0, 30, 0, 0.9) !important;
+    color: #00ff00 !important;
+    border: 1px solid #00ff00 !important;
+}
+
+.data-panel, .camera-panel, .analytics-panel {
+    background: #0a0a0a;
+}
+
+.search-section {
+    padding: 15px;
+    display: flex;
+    gap: 10px;
+}
+
+.delta-input {
+    flex: 1;
+    background: rgba(0, 20, 0, 0.8);
+    border: 1px solid #00ff00;
+    color: #00ff00;
+    padding: 8px 12px;
+    font-family: 'Roboto Mono', monospace;
+    font-size: 12px;
+}
+
+.delta-input::placeholder {
+    color: #008800;
+}
+
+.search-btn, .delta-btn, .ctrl-btn {
+    background: rgba(0, 30, 0, 0.9);
+    border: 1px solid #00ff00;
+    color: #00ff00;
+    padding: 8px 15px;
+    font-family: 'Roboto Mono', monospace;
+    font-size: 11px;
+    cursor: pointer;
+    text-transform: uppercase;
+    transition: all 0.3s;
+}
+
+.search-btn:hover, .delta-btn:hover, .ctrl-btn:hover {
+    background: #00ff00;
+    color: #000;
+}
+
+.object-details {
+    padding: 15px;
+    height: calc(100% - 80px);
+    overflow-y: auto;
+}
+
+.init-screen {
+    text-align: center;
+    padding: 40px 20px;
+}
+
+.sbu-logo {
+    font-size: 60px;
+    color: #00ff00;
+    margin-bottom: 20px;
+}
+
+.building-info {
+    border: 1px solid #00ff00;
+    padding: 15px;
+    margin-bottom: 15px;
+    background: rgba(0, 30, 0, 0.3);
+}
+
+.residents-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+    font-size: 11px;
+}
+
+.residents-table th, .residents-table td {
+    border: 1px solid #00ff00;
+    padding: 8px;
+    text-align: left;
+}
+
+.residents-table th {
+    background: rgba(0, 50, 0, 0.5);
+}
+
+.camera-container {
+    height: 200px;
+    background: #000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+.camera-placeholder {
+    text-align: center;
+    color: #008800;
+}
+
+.camera-icon {
+    font-size: 40px;
+    margin-bottom: 10px;
+}
+
+.live-feed {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.camera-controls {
+    padding: 15px;
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+}
+
+.analytics-content {
+    padding: 20px;
+}
+
+.stat-item {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 15px;
+    padding: 10px;
+    background: rgba(0, 30, 0, 0.3);
+    border: 1px solid #008800;
+}
+
+.stat-label {
+    color: #00ff00;
+}
+
+.stat-value {
+    color: #ffff00;
+    font-weight: bold;
+}
+
+.report-btn {
+    width: 100%;
+    padding: 12px;
+    background: rgba(255, 68, 68, 0.2);
+    border: 1px solid #ff4444;
+    color: #ff4444;
+    font-family: 'Roboto Mono', monospace;
+    cursor: pointer;
+    text-transform: uppercase;
+    margin-top: 10px;
+}
+
+.status-bar {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(0, 20, 0, 0.9);
+    border-top: 1px solid #00ff00;
+    padding: 5px 20px;
+    display: flex;
+    gap: 30px;
+}
+
+.status-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 11px;
+}
+
+.status-indicator {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+}
+
+.status-indicator.online {
+    background: #00ff00;
+    box-shadow: 0 0 10px #00ff00;
+}
+
+.status-indicator.active {
+    background: #ffff00;
+    box-shadow: 0 0 10px #ffff00;
+}
+
+.status-indicator.recording {
+    background: #ff4444;
+    box-shadow: 0 0 10px #ff4444;
+    animation: pulse 1s infinite;
+}
+
+@keyframes pulse {
+    0% { opacity: 1; }
+    50% { opacity: 0.5; }
+    100% { opacity: 1; }
+}
+
+.threat-alert {
+    animation: alertBlink 0.5s infinite;
+}
+
+@keyframes alertBlink {
+    0% { background: rgba(255, 0, 0, 0.1); }
+    50% { background: rgba(255, 0, 0, 0.3); }
+    100% { background: rgba(255, 0, 0, 0.1); }
+}

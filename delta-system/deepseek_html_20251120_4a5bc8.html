@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Система моніторингу Delta СБУ</title>
+    <link rel="stylesheet" href="https://openlayers.org/en/v6.15.1/css/ol.css">
+    <link rel="stylesheet" href="css/delta.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@300;400;500;700&display=swap" rel="stylesheet">
+</head>
+<body class="delta-terminal">
+    <div class="system-overlay">
+        <div class="top-bar">
+            <div class="system-info">
+                <span class="security-level">РІВЕНЬ БЕЗПЕКИ: ДЕЛЬТА</span>
+                <span class="timestamp" id="timestamp"></span>
+                <span class="operator">ОПЕРАТОР: СБУ-0876</span>
+            </div>
+        </div>
+
+        <div class="main-container">
+            <div class="map-panel">
+                <div class="panel-header">
+                    <h2>КАРТА МОНІТОРИНГУ ТЕРИТОРІЇ УКРАЇНИ</h2>
+                    <div class="map-controls">
+                        <button class="ctrl-btn" onclick="toggleSatellite()">СУПУТНИК</button>
+                        <button class="ctrl-btn" onclick="scanForThreats()">СКАНУВАТИ</button>
+                        <button class="ctrl-btn" onclick="showAllUnits()">ВСІ ОБ'ЄКТИ</button>
+                    </div>
+                </div>
+                <div id="deltaMap" class="delta-map"></div>
+            </div>
+
+            <div class="side-panels">
+                <div class="data-panel">
+                    <div class="panel-header">
+                        <h2>БАЗА ДАНИХ ОБ'ЄКТІВ</h2>
+                    </div>
+                    <div class="search-section">
+                        <input type="text" id="searchInput" placeholder="ПОШУК ЗА АДРЕСОЮ, ФІО, IP..." class="delta-input">
+                        <button onclick="advancedSearch()" class="search-btn">ПОШУК</button>
+                    </div>
+                    <div id="objectDetails" class="object-details">
+                        <div class="init-screen">
+                            <div class="sbu-logo">Δ</div>
+                            <p>СИСТЕМА DELTA АКТИВОВАНА</p>
+                            <p>Оберіть об'єкт на карті для перегляду детальної інформації</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="camera-panel">
+                    <div class="panel-header">
+                        <h2>СИСТЕМА ВІДЕОСПОСТЕРЕЖЕННЯ</h2>
+                    </div>
+                    <div id="cameraContainer" class="camera-container">
+                        <div class="camera-placeholder">
+                            <div class="camera-icon">📹</div>
+                            <p>Камера не обрана</p>
+                        </div>
+                    </div>
+                    <div class="camera-controls">
+                        <button class="delta-btn" onclick="recordFootage()">ЗАПИС</button>
+                        <button class="delta-btn" onclick="takeScreenshot()">ЗНИМОК</button>
+                        <button class="delta-btn" onclick="toggleNightVision()">НІЧНИЙ</button>
+                    </div>
+                </div>
+
+                <div class="analytics-panel">
+                    <div class="panel-header">
+                        <h2>АНАЛІТИКА ТА ЗВІТИ</h2>
+                    </div>
+                    <div class="analytics-content">
+                        <div class="stat-item">
+                            <span class="stat-label">МОНІТОРИНГ ОБ'ЄКТІВ:</span>
+                            <span class="stat-value" id="objectsCount">0</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-label">АКТИВНІ КАМЕРИ:</span>
+                            <span class="stat-value" id="activeCameras">0</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-label">ЗАРЕЄСТРОВАНИХ ОСІБ:</span>
+                            <span class="stat-value" id="personsCount">0</span>
+                        </div>
+                        <button class="report-btn" onclick="generateReport()">ЗВІТ ПО СИСТЕМІ</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="status-bar">
+            <div class="status-item">
+                <span class="status-indicator online"></span>
+                СИСТЕМА: ONLINE
+            </div>
+            <div class="status-item">
+                <span class="status-indicator active"></span>
+                БАЗА ДАНИХ: АКТИВНА
+            </div>
+            <div class="status-item">
+                <span class="status-indicator recording"></span>
+                АРХІВ: ЗАПИСУЄТЬСЯ
+            </div>
+        </div>
+    </div>
+
+    <script src="https://openlayers.org/en/v6.15.1/build/ol.js"></script>
+    <script src="js/delta-database.js"></script>
+    <script src="js/delta-system.js"></script>
+</body>
+</html>
